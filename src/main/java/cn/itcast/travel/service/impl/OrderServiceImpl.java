@@ -22,7 +22,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void addOrder(String rid, String uid) {
+    public void addOrder(String rid, int uid) {
         orderDao.addOrder(rid,uid);
     }
 }

@@ -11,5 +11,5 @@ import java.util.List;
 public interface OrderService {
     List<Order> myOrder(int uid);
 
-    void addOrder(String rid, String uid);
+    void addOrder(String rid, int uid);
 }

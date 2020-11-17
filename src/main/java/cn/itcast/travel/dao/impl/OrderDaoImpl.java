@@ -28,7 +28,7 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     //order在数据库中是关键字要转义
-    public void addOrder(String rid, String uid) {
+    public void addOrder(String rid, int uid) {
         String sql="insert into `order` values(?,?,?) ";
         template.update(sql, uid,rid, new Date());
     }

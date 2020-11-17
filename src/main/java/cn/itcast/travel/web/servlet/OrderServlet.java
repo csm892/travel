@@ -47,7 +47,7 @@ public class OrderServlet extends BaseServlet {
         //接受参数
         String rid = request.getParameter("rid");
         //获取session
-       /** User user= (User) request.getSession().getAttribute("user");
+       User user= (User) request.getSession().getAttribute("user");
         int uid;
         if (user==null){
             //用户没有登录
@@ -58,8 +58,8 @@ public class OrderServlet extends BaseServlet {
         }
 
         //调用service查询，
-        favoriteService.addFavorite(rid, uid);*/
-       String uid=request.getParameter("uid");
+
+
        orderService.addOrder(rid,uid);
     }
 
