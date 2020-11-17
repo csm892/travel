@@ -195,4 +195,60 @@ public class UserServlet extends BaseServlet {
 
     }
 
-}
+
+    /**
+     * 根据uid查出一个用户所有基本信息
+     */
+    public void findUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        User user= (User) request.getSession().getAttribute("user");
+        int uid;
+        if (user==null){
+            //用户没有登录
+            uid=0;
+
+        }else {
+            uid=user.getUid();
+        }
+        UserService service = new UserServiceImpl();
+        user=service.findUser(uid);
+        ObjectMapper mapper = new ObjectMapper();
+        response.setContentType("application/json;charset=utf-8");
+        mapper.writeValue(response.getOutputStream(),user);
+
+    }
+
+
+    /**
+     * 修改个人基本信息
+     */
+    public void updateUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        String password=request.getParameter("password");
+
+        User user= (User) request.getSession().getAttribute("user");
+        int uid;
+        if (user==null){
+            //用户没有登录
+            uid=0;
+
+        }else {
+            uid=user.getUid();
+        }
+        UserService service = new UserServiceImpl();
+        boolean flag = service.updateUser(password,uid);
+        //3.判断标记
+        String msg = null;
+        if(flag){
+            //激活成功
+            msg = "修改成功";
+        }else{
+            //激活失败
+            msg = "修改失败!";
+        }
+        response.setContentType("text/html;charset=utf-8");
+        response.getWriter().write(msg);
+
+
+    }
+    }

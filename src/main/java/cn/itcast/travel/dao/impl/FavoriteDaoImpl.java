@@ -50,7 +50,7 @@ public class FavoriteDaoImpl implements FavoriteDao {
     @Override
     public void add(int rid, int uid) {
         String sql="insert into tab_favorite values(?,?,?) ";
-        template.update(sql,rid,new Date(),uid);
+       template.update(sql, rid, new Date(), uid);
 
     }
 

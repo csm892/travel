@@ -72,4 +72,20 @@ public class UserServiceImpl implements UserService {
         return userDao.findByUsernameAndPassword(user.getUsername(),user.getPassword());
     }
 
+    @Override
+    public User findUser(int uid) {
+        return userDao.findUser(uid);
+    }
+
+    @Override
+    public boolean updateUser(String password, int uid) {
+        if(userDao.updateUser(password,uid)>=1){
+
+            return true;
+        }else{
+            return false;
+        }
+
+    }
+
 }
