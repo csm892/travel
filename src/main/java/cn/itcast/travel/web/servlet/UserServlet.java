@@ -92,6 +92,28 @@ public class UserServlet extends BaseServlet {
      * 登录
      */
     public void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //验证校验
+        String check = request.getParameter("check");
+        //从sesion中获取验证码
+        HttpSession session = request.getSession();
+        String checkcode_server = (String) session.getAttribute("CHECKCODE_SERVER");
+        session.removeAttribute("CHECKCODE_SERVER");//为了保证验证码只能使用一次
+        //比较
+        if(checkcode_server == null || !checkcode_server.equalsIgnoreCase(check)){
+            //验证码错误
+            ResultInfo info = new ResultInfo();
+            //注册失败
+            info.setFlag(false);
+            info.setErrorMsg("验证码错误");
+            //将info对象序列化为json
+            ObjectMapper mapper = new ObjectMapper();
+            String json = mapper.writeValueAsString(info);
+            response.setContentType("application/json;charset=utf-8");
+            response.getWriter().write(json);
+            return;
+        }
+
+
         //1.获取用户名和密码数据
         Map<String, String[]> map = request.getParameterMap();
         //2.封装User对象
