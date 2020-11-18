@@ -13,4 +13,6 @@ public interface DiscussService {
     List<Discuss> findByRid(String rid);
 
     void add(Discuss discuss);
+
+    boolean isDiscuss(int uid);
 }

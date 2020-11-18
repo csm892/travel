@@ -24,4 +24,10 @@ public class DiscussServiceImpl implements DiscussService {
     public void add(Discuss discuss) {
         discussDao.add(discuss);
     }
+
+    @Override
+    public boolean isDiscuss(int uid) {
+        Discuss discuss=discussDao.isDiscuss(uid);
+        return discuss!=null;
+    }
 }

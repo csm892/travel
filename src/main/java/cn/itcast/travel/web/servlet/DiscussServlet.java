@@ -1,6 +1,7 @@
 package cn.itcast.travel.web.servlet;
 
 import cn.itcast.travel.domain.Discuss;
+import cn.itcast.travel.domain.User;
 import cn.itcast.travel.service.DiscussService;
 import cn.itcast.travel.service.impl.DiscussServiceImpl;
 import org.apache.commons.beanutils.BeanUtils;
@@ -51,10 +52,28 @@ public class DiscussServlet extends BaseServlet {
         discussService.add(discuss);
 
 
-
-
-
-
     }
+    /**
+     * 判断用户是否评论过
+     */
+    public  void isDiscuss(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+
+        //获取session
+      User user= (User) request.getSession().getAttribute("user");
+        int uid;
+        if (user==null){
+            //用户没有登录
+            uid=0;
+
+        }else {
+            uid=user.getUid();
+        }
+
+        //调用service查询，*/
+       // String uid=request.getParameter("uid");
+        boolean flag = discussService.isDiscuss(uid);
+        writeValue(flag,response);
+     }
 
     }

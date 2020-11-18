@@ -7,6 +7,8 @@ import cn.itcast.travel.service.UserService;
 import cn.itcast.travel.util.MailUtils;
 import cn.itcast.travel.util.UuidUtil;
 
+import java.util.List;
+
 public class UserServiceImpl implements UserService {
 
     private UserDao userDao = new UserDaoImpl();
@@ -78,14 +80,20 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean updateUser(String password, int uid) {
-        if(userDao.updateUser(password,uid)>=1){
+    public boolean updateUser(User user) {
+        if(userDao.updateUser(user)>=1){
 
             return true;
         }else{
             return false;
         }
 
+    }
+
+    @Override
+    public List<User> findAllUser() {
+        List<User> users=userDao.findAllUser();
+        return users;
     }
 
 }

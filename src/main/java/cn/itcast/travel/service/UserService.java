@@ -2,6 +2,8 @@ package cn.itcast.travel.service;
 
 import cn.itcast.travel.domain.User;
 
+import java.util.List;
+
 public interface UserService {
     /**
      * 注册用户
@@ -16,5 +18,7 @@ public interface UserService {
 
     User findUser(int uid);
 
-    boolean updateUser(String password, int uid);
+    boolean updateUser(User user);
+
+    List<User> findAllUser();
 }

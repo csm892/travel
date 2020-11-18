@@ -2,8 +2,10 @@ package cn.itcast.travel.dao.impl;
 
 import cn.itcast.travel.dao.DiscussDao;
 import cn.itcast.travel.domain.Discuss;
+import cn.itcast.travel.domain.Favorite;
 import cn.itcast.travel.domain.myFavorite;
 import cn.itcast.travel.util.JDBCUtils;
+import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -37,4 +39,20 @@ public class DiscussDaoImpl implements DiscussDao {
 
         );
     }
+
+    @Override
+    public Discuss isDiscuss(int uid) {
+        //用户十分评论过
+        Discuss discuss=null;
+        try {
+            String sql = " select * from discuss where  uid = ?";
+            discuss = template.queryForObject(sql, new BeanPropertyRowMapper<Discuss>(Discuss.class), uid);
+        } catch (DataAccessException e) {
+            // System.out.println("没有用户");
+
+        }
+        return discuss;
+    }
+
+
 }

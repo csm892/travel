@@ -1,11 +1,16 @@
 package cn.itcast.travel.dao.impl;
 
 import cn.itcast.travel.dao.UserDao;
+import cn.itcast.travel.domain.Route;
 import cn.itcast.travel.domain.User;
 import cn.itcast.travel.util.JDBCUtils;
+import cn.itcast.travel.util.StrUtil;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDaoImpl implements UserDao {
 
@@ -110,10 +115,51 @@ public class UserDaoImpl implements UserDao {
     }
 
     @Override
-    public int updateUser(String password, int uid) {
+    public int updateUser(User user) {
         int n=0;
-        String sql = " update tab_user set password = ? where uid=?";
-        n= template.update(sql,password,uid);
+        String sql = " update tab_user set ";
+
+        StringBuilder sb = new StringBuilder(sql);
+        List params = new ArrayList();//条件们
+        if (StrUtil.isNotEmpty(user.getUsername())){
+
+            sb.append( " username = ?, ");
+
+            params.add(user.getUsername());//添加？对应的值
+        }
+        if (StrUtil.isNotEmpty(user.getPassword())){
+
+            sb.append( " password = ?, ");
+
+            params.add(user.getPassword());//添加？对应的值
+        }
+        if (StrUtil.isNotEmpty(user.getName())){
+
+            sb.append( "name = ?, ");
+
+            params.add(user.getName());//添加？对应的值
+        }
+        if (StrUtil.isNotEmpty(user.getTelephone())){
+
+            sb.append( " telephone= ?, ");
+
+            params.add(user.getTelephone());//添加？对应的值
+        }
+
+        params.add(user.getUid());
+        params.add(user.getUid());
+        sb.append(" uid=? where uid= ? ");//分页条件
+
+        sql = sb.toString();
+
+        n= template.update(sql,params.toArray());
         return n;
+    }
+
+    @Override
+    public List<User> findAllUser() {
+        String sql="select * from tab_user";
+        return template.query(sql,new BeanPropertyRowMapper<User>(User.class));
+
     }
 }

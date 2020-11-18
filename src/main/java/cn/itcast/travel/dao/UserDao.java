@@ -2,6 +2,8 @@ package cn.itcast.travel.dao;
 
 import cn.itcast.travel.domain.User;
 
+import java.util.List;
+
 public interface UserDao {
 
     /**
@@ -25,5 +27,7 @@ public interface UserDao {
 
     User findUser(int uid);
 
-    int updateUser(String password, int uid);
+    int updateUser(User user);
+
+    List<User> findAllUser();
 }

@@ -15,6 +15,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -178,10 +179,22 @@ public class UserServlet extends BaseServlet {
 
 
 
-
     /**
-     *退出
+     *查询所有用户信息
      */
+
+    public void findAllUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        UserService userService=new UserServiceImpl();
+        List<User> users=userService.findAllUser();
+        writeValue(users,response);
+
+
+
+    }
+        /**
+         *退出
+         */
     public void exit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //1.销毁session
         request.getSession().invalidate();
@@ -246,9 +259,9 @@ public class UserServlet extends BaseServlet {
      */
     public void updateUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        String password=request.getParameter("password");
 
-        User user= (User) request.getSession().getAttribute("user");
+
+       User user= (User) request.getSession().getAttribute("user");
         int uid;
         if (user==null){
             //用户没有登录
@@ -257,20 +270,44 @@ public class UserServlet extends BaseServlet {
         }else {
             uid=user.getUid();
         }
-        UserService service = new UserServiceImpl();
-        boolean flag = service.updateUser(password,uid);
-        //3.判断标记
-        String msg = null;
-        if(flag){
-            //激活成功
-            msg = "修改成功";
-        }else{
-            //激活失败
-            msg = "修改失败!";
-        }
-        response.setContentType("text/html;charset=utf-8");
-        response.getWriter().write(msg);
+      // String uid=request.getParameter("uid");
 
+        //1.获取数据
+        Map<String, String[]> map = request.getParameterMap();
+
+        //2.封装对象
+        User user2 = new User();
+        user2.setUid(uid);
+        try {
+            BeanUtils.populate(user2,map);
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
+
+        //3.调用service完成注册
+        UserService service = new UserServiceImpl();
+        boolean flag = service.updateUser(user2);
+        ResultInfo info = new ResultInfo();
+        //4.响应结果
+        if(flag){
+            //注册成功
+            info.setFlag(true);
+        }else{
+            //注册失败
+            info.setFlag(false);
+            info.setErrorMsg("修改失败!");
+        }
+
+        //将info对象序列化为json
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(info);
+
+        //将json数据写回客户端
+        //设置content-type
+        response.setContentType("application/json;charset=utf-8");
+        response.getWriter().write(json);
 
     }
     }

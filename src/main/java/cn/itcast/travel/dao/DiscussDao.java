@@ -13,4 +13,6 @@ public interface DiscussDao {
     List<Discuss> findByRid(String rid);
 
     void add(Discuss discuss);
+
+    Discuss isDiscuss(int uid);
 }
