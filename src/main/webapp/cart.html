@@ -1,0 +1,211 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>购物车</title>
+		<link href="css/layout.css" rel="stylesheet" type="text/css" />
+		<link href="css/nf.lightbox.css" rel="stylesheet" type="text/css" />
+		<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+		<script type="text/javascript" src="js/NFLightBox.js"></script>
+		<script type="text/javascript" src="js/shop.js"></script>
+		<style type="text/css">
+			.mask {
+				/*遮罩层*/
+				background-color: gray;
+				left: 0;
+				position: absolute;
+				top: 0;
+				z-index: 100;
+				filter: alpha(opacity=30);
+				opacity: 0.3;
+			}
+			
+			div.dialog {
+				width: 296px;
+				height: 173px;
+				position: absolute;
+				z-index: 101;
+				display: none;
+				background-image: url(images/dialog.png)
+			}
+			
+			div.title {
+				padding-top: 5px;
+				padding-left: 270px;
+			}
+			
+			div.dialog div.content {
+				height: 90px;
+				text-align: center;
+				font: bold 15px/90px Verdana, Geneva, sans-serif;
+			}
+			
+			div.dialog div.bottom {
+				text-align: right;
+				padding: 10px 10px 10px 0px;
+				border-top: 1px dashed #999999;
+			}
+			
+			div.bottom .btn1 {
+				border: none;
+				width: 63px;
+				height: 29px;
+				cursor: pointer;
+			}
+			
+			div.bottom #btnSure {
+				background-image: url(images/delSure.jpg);
+			}
+			
+			div.bottom #btnCancel {
+				background-image: url(images/delCancel.jpg);
+			}
+		</style>
+		<script type="text/javascript">
+			window.onload = function picLight() {
+				var settings = {
+					containerResizeSpeed: 350,
+					overlayOpacity: 0.5
+				};
+				$('#luxian a[title]').lightBox(settings);
+			}
+		</script>
+	</head>
+
+	<body onclick="picLight(),calTotal()">
+		<!--头部-->
+
+
+		<!--注册版块-->
+		<div id="shop">
+			<div id="shop-t">
+				<div id="shop-l"><img src="images/sh.jpg" width="74" height="67" /></div>
+				<div id="shop-r">我的购物车</div>
+			</div>
+			<div id="shop-inf" style="color: #FFC900">
+				<ul style="color: #FFC900">
+					<li class="xh" style="color: black" >序号</li>
+					<li class="lx" style="color: black">路线名称</li>
+					<li class="rs" style="color: black">单价</li>
+					<li class="dj" style="color: black">
+						<a href="#"> 下单</a>
+					</li>
+					<li class="cz" style="color: black">操作</li>
+				</ul>
+			</div>
+			<div id="shop-xx">
+				<ul id="shop1">
+					<li class="xh">1</li>
+					<li class="lx">
+						<div id="luxian">
+							<ul>
+								<li>
+									<a href="images/pic1.jpg" title="美国"><img src="images/pic1.jpg" width="87" height="58" /></a>
+								</li>
+								<li>
+									<a href="#">产品编号：f45efb23线路名：美国1日游【交通工具+火车】</a>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li class="rs">￥234</li>
+					<li class="dj">
+						<a href="#">下单</a>
+					</li>
+					<li class="cz">
+						<a href="#" class="btnDel"><span style="color:#F60; text-decoration:underline;">删除</span></a>
+					</li>
+				</ul>
+				<ul id="shop2">
+					<li class="xh">2</li>
+					<li class="lx">
+						<div id="luxian">
+							<ul>
+								<li>
+									<a href="images/pic2.png" title="仰光"><img src="images/pic2.png" width="87" height="58" /></a>
+								</li>
+								<li>
+									<a href="#">产品编号：39252b36d线路名：仰光2日游【交通工具+飞机】</a>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li class="rs">￥765</li>
+					<li class="dj">
+						<a href="#">下单</a>
+					</li>
+					<li class="cz">
+						<a href="#" class="btnDel"><span style="color:#F60; text-decoration:underline;">删除</span></a>
+					</li>
+				</ul>
+				<ul id="shop3">
+					<li class="xh">3</li>
+					<li class="lx">
+						<div id="luxian">
+							<ul>
+								<li>
+									<a href="images/pic3.jpg" title="大阪"><img src="images/pic3.jpg" width="87" height="58" /></a>
+								</li>
+								<li>
+									<a href="#">产品编号：24b958r6线路名：大阪1日游【交通工具+飞机】</a>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li class="rs">￥897</li>
+					<li class="dj">
+						<a href="#">下单</a>
+					</li>
+					<li class="cz">
+						<a href="#" class="btnDel"><span style="color:#F60; text-decoration:underline;">删除</span></a>
+					</li>
+				</ul>
+
+				<ul id="shop4">
+					<li class="xh">4</li>
+					<li class="lx">
+						<div id="luxian">
+							<ul>
+								<li>
+									<a href="images/fhgc.jpg" title="凤凰古城"><img src="images/fhgc.jpg" width="87" height="58" /></a>
+								</li>
+								<li>
+									<a href="#">产品编号：24b967f7线路名：凤凰古城5日游【交通工具+飞机】</a>
+								</li>
+							</ul>
+						</div>
+					</li>
+					<li class="rs">￥2888</li>
+					<li class="dj">
+						<a href="#">下单</a>
+					</li>
+					<li class="cz">
+						<a href="#" class="btnDel"><span style="color:#F60; text-decoration:underline;">删除</span></a>
+					</li>
+				</ul>
+
+			</div>
+		<div id="jine">应付金额：<span style="color:#F00;"></span>元</div>
+			<div id="js">
+				<input name="button" type="image" id="button" value="提交" src="images/js.jpg" />
+			</div>
+		</div>
+
+		<!--底部-->
+		<div class="mask"></div>
+
+		<div class="dialog">
+			<div class="title">
+				<img src="images/del.png" id="closePic" title="关闭" /> </div>
+			<div class="content">
+				<p>您真的要删除这条记录吗？</p>
+			</div>
+			<div class="bottom">
+				<input type="button" value="" class="btn1" id="btnSure" />
+				<input type="button" value="" class="btn1" id="btnCancel" />
+			</div>
+		</div>
+	</body>
+
+</html>
