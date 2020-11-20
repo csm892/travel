@@ -94,7 +94,7 @@ public class UserServlet extends BaseServlet {
      */
     public void login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //验证校验
-        String check = request.getParameter("check");
+       /** String check = request.getParameter("check");
         //从sesion中获取验证码
         HttpSession session = request.getSession();
         String checkcode_server = (String) session.getAttribute("CHECKCODE_SERVER");
@@ -112,7 +112,7 @@ public class UserServlet extends BaseServlet {
             response.setContentType("application/json;charset=utf-8");
             response.getWriter().write(json);
             return;
-        }
+        }*/
 
 
         //1.获取用户名和密码数据
@@ -234,7 +234,19 @@ public class UserServlet extends BaseServlet {
     /**
      * 根据uid查出一个用户所有基本信息
      */
-    public void findUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public void findUserByUid(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        String uid=request.getParameter("uid");
+        UserService service = new UserServiceImpl();
+        User user = service.findUser(Integer.parseInt(uid));
+        ObjectMapper mapper = new ObjectMapper();
+        response.setContentType("application/json;charset=utf-8");
+        mapper.writeValue(response.getOutputStream(),user);
+
+
+    }
+
+        public void findUser(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         User user= (User) request.getSession().getAttribute("user");
         int uid;

@@ -6,9 +6,7 @@
 		<title>购物车</title>
 		<link href="css/layout.css" rel="stylesheet" type="text/css" />
 		<link href="css/nf.lightbox.css" rel="stylesheet" type="text/css" />
-		<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
-		<script type="text/javascript" src="js/NFLightBox.js"></script>
-		<script type="text/javascript" src="js/shop.js"></script>
+
 		<style type="text/css">
 			.mask {
 				/*遮罩层*/
@@ -62,16 +60,7 @@
 				background-image: url(images/delCancel.jpg);
 			}
 		</style>
-		<script type="text/javascript">
-			window.onload = function picLight() {
-				var settings = {
-					containerResizeSpeed: 350,
-					overlayOpacity: 0.5
-				};
-				$('#luxian a[title]').lightBox(settings);
-			}
-		</script>
-	</head>
+		</head>
 
 	<body onclick="picLight(),calTotal()">
 		<!--头部-->
@@ -80,7 +69,7 @@
 		<!--注册版块-->
 		<div id="shop">
 			<div id="shop-t">
-				<div id="shop-l"><img src="images/sh.jpg" width="74" height="67" /></div>
+
 				<div id="shop-r">我的购物车</div>
 			</div>
 			<div id="shop-inf" style="color: #FFC900">
@@ -96,6 +85,7 @@
 			</div>
 			<div id="shop-xx">
 				<ul id="shop1">
+
 					<li class="xh">1</li>
 					<li class="lx">
 						<div id="luxian">
@@ -104,85 +94,19 @@
 									<a href="images/pic1.jpg" title="美国"><img src="images/pic1.jpg" width="87" height="58" /></a>
 								</li>
 								<li>
-									<a href="#">产品编号：f45efb23线路名：美国1日游【交通工具+火车】</a>
+									<a href="#">美国1日游【交通工具+火车】</a>
 								</li>
 							</ul>
 						</div>
 					</li>
-					<li class="rs">￥234</li>
+					<li class="rs" id="price">￥234</li>
 					<li class="dj">
 						<a href="#">下单</a>
 					</li>
 					<li class="cz">
 						<a href="#" class="btnDel"><span style="color:#F60; text-decoration:underline;">删除</span></a>
 					</li>
-				</ul>
-				<ul id="shop2">
-					<li class="xh">2</li>
-					<li class="lx">
-						<div id="luxian">
-							<ul>
-								<li>
-									<a href="images/pic2.png" title="仰光"><img src="images/pic2.png" width="87" height="58" /></a>
-								</li>
-								<li>
-									<a href="#">产品编号：39252b36d线路名：仰光2日游【交通工具+飞机】</a>
-								</li>
-							</ul>
-						</div>
-					</li>
-					<li class="rs">￥765</li>
-					<li class="dj">
-						<a href="#">下单</a>
-					</li>
-					<li class="cz">
-						<a href="#" class="btnDel"><span style="color:#F60; text-decoration:underline;">删除</span></a>
-					</li>
-				</ul>
-				<ul id="shop3">
-					<li class="xh">3</li>
-					<li class="lx">
-						<div id="luxian">
-							<ul>
-								<li>
-									<a href="images/pic3.jpg" title="大阪"><img src="images/pic3.jpg" width="87" height="58" /></a>
-								</li>
-								<li>
-									<a href="#">产品编号：24b958r6线路名：大阪1日游【交通工具+飞机】</a>
-								</li>
-							</ul>
-						</div>
-					</li>
-					<li class="rs">￥897</li>
-					<li class="dj">
-						<a href="#">下单</a>
-					</li>
-					<li class="cz">
-						<a href="#" class="btnDel"><span style="color:#F60; text-decoration:underline;">删除</span></a>
-					</li>
-				</ul>
 
-				<ul id="shop4">
-					<li class="xh">4</li>
-					<li class="lx">
-						<div id="luxian">
-							<ul>
-								<li>
-									<a href="images/fhgc.jpg" title="凤凰古城"><img src="images/fhgc.jpg" width="87" height="58" /></a>
-								</li>
-								<li>
-									<a href="#">产品编号：24b967f7线路名：凤凰古城5日游【交通工具+飞机】</a>
-								</li>
-							</ul>
-						</div>
-					</li>
-					<li class="rs">￥2888</li>
-					<li class="dj">
-						<a href="#">下单</a>
-					</li>
-					<li class="cz">
-						<a href="#" class="btnDel"><span style="color:#F60; text-decoration:underline;">删除</span></a>
-					</li>
 				</ul>
 
 			</div>
@@ -206,6 +130,96 @@
 				<input type="button" value="" class="btn1" id="btnCancel" />
 			</div>
 		</div>
+	<script src="js/jquery-1.11.0.min.js"></script>
+	<script >
+		$(function () {
+			//先判断用户是否登录
+			$.get("user/findOne", {}, function (user) {
+
+
+
+
+				if (user) {
+					$.get("car/myCar",{},function (cars) {
+						var lis="";
+
+
+						for (var i = 0; i < cars.length;i++) {
+
+							$.get("route/findOne",{rid:cars[i].rid},function (route) {
+
+
+									var li='<li class="xh"><input type="checkbox" name="vehicle" value="Car"  /></li>\n' +
+											'\t\t\t\t\t<li class="lx">\n' +
+											'\t\t\t\t\t\t<div id="luxian">\n' +
+											'\t\t\t\t\t\t\t<ul>\n' +
+											'\t\t\t\t\t\t\t\t<li>\n' +
+											'\t\t\t\t\t\t\t\t\t<a href="#" ><img src="'+route.rimage+'"  width="87" height="68" /></a>\n' +
+											'\t\t\t\t\t\t\t\t</li>\n' +
+											'\t\t\t\t\t\t\t\t<li>\n' +
+											'\t\t\t\t\t\t\t\t\t<a href="route_detail.html?rid='+route.rid+'">线路名称</a>\n' +
+											'\t\t\t\t\t\t\t\t</li>\n' +
+											'\t\t\t\t\t\t\t</ul>\n' +
+											'\t\t\t\t\t\t</div>\n' +
+											'\t\t\t\t\t</li>\n' +
+											'\t\t\t\t\t<li class="rs">'+route.price+'</li>\n' +
+											'\t\t\t\t\t<li class="dj">\n' +
+											'\t\t\t\t\t\t<a href="#">下单</a>\n' +
+											'\t\t\t\t\t</li>\n' +
+											'\t\t\t\t\t<li class="cz">\n' +
+											'\t\t\t\t\t\t<a href="" class="btnDel" id="delete"><span style="color:#F60; text-decoration:underline;">删除</span></a>\n' +
+											'\t\t\t\t\t</li>';
+									lis+=li;
+									$("#shop1").html(lis)
+
+
+
+
+
+
+							})
+
+						}
+
+					})
+
+				}else {
+					//没有登录
+					alert("您还没有登录，请登录！");
+					location.href = "http://localhost/travel/login.html";
+				}
+
+			})
+
+
+
+
+		})
+		function calteTotal(){
+			var sum = 0;
+			$("#shop-xx li.rs").each(function() {
+				sum = sum+parseFloat($(this).text().substr(1));
+			});
+			$("#jine span").html(sum);
+		}
+
+
+
+	</script>
+		<script type="text/javascript" src="js/jquery-1.11.0.min.js"></script>
+		<script type="text/javascript" src="js/NFLightBox.js"></script>
+		<script type="text/javascript" src="js/shop.js"></script>
+		<script type="text/javascript">
+			window.onload = function picLight() {
+				var settings = {
+					containerResizeSpeed: 350,
+					overlayOpacity: 0.5
+				};
+				$('#luxian a[title]').lightBox(settings);
+			}
+		</script>
+
 	</body>
+
 
 </html>

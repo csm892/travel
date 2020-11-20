@@ -9,6 +9,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -29,13 +30,14 @@ public class DiscussDaoImpl implements DiscussDao {
     @Override
     public void add(Discuss discuss) {
         //1.定义sql
-        String sql = "insert into discuss(rid,uid,date,content) values (?,?,?,? ) ";
+        String sql = "insert into discuss(rid,uid,date,content,username) values (?,?,?,?,? ) ";
         //2.执行sql
 
         template.update(sql,discuss.getRid(),
                 discuss.getUid(),
-                discuss.getDate(),
-                discuss.getContent()
+             discuss.getDate(),
+                discuss.getContent(),
+                discuss.getUsername()
 
         );
     }

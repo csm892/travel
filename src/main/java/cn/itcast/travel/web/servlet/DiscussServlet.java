@@ -10,8 +10,10 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -35,11 +37,15 @@ public class DiscussServlet extends BaseServlet {
     public void add(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String rid=request.getParameter("rid");
         String uid=request.getParameter("uid");
+        String username=request.getParameter("username");
         //获取表单提交评论内容
         Map<String, String[]> map = request.getParameterMap();
         Discuss discuss=new Discuss();
         discuss.setRid(Integer.parseInt(rid));
         discuss.setUid(Integer.parseInt(uid));
+
+        discuss.setDate(new Date());
+        discuss.setUsername(username);
         //封装提交的评论内容
         try {
             BeanUtils.populate(discuss,map);
@@ -48,7 +54,7 @@ public class DiscussServlet extends BaseServlet {
         } catch (InvocationTargetException e) {
             e.printStackTrace();
         }
-        System.out.println(discuss);
+        //System.out.println(discuss);
         discussService.add(discuss);
 
 

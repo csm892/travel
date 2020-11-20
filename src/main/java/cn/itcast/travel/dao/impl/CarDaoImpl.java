@@ -4,6 +4,7 @@ import cn.itcast.travel.dao.CarDao;
 import cn.itcast.travel.domain.Car;
 import cn.itcast.travel.domain.Favorite;
 import cn.itcast.travel.domain.myFavorite;
+import cn.itcast.travel.util.JDBCUtils;
 import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -17,7 +18,7 @@ import java.util.List;
  */
 public class CarDaoImpl implements CarDao {
 
-    private JdbcTemplate template=new JdbcTemplate();
+    private JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());
     @Override
     public Car isCar(int uid, String rid) {
         /**
@@ -49,7 +50,7 @@ public class CarDaoImpl implements CarDao {
 
     @Override
     public List<Car> myCar(int uid) {
-        String sql = " select * from car where  uid = ?";
+        String sql = " select * from car where  uid = ? ";
 
         return  template.query(sql, new BeanPropertyRowMapper<Car>(Car.class),uid);
 

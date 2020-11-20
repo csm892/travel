@@ -1,5 +1,7 @@
 package cn.itcast.travel.domain;
 
+import java.util.Date;
+
 /**
  * @author csm
  * @create 2020-11-18 上午 11:08
@@ -7,8 +9,17 @@ package cn.itcast.travel.domain;
 public class Discuss {
     private  Integer uid;
     private  Integer rid;
-    private String date;
+    private Date date;
     private  String content;
+    private  String username;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     @Override
     public String toString() {
@@ -36,11 +47,11 @@ public class Discuss {
         this.rid = rid;
     }
 
-    public String getDate() {
+    public Date getDate() {
         return date;
     }
 
-    public void setDate(String date) {
+    public void setDate(Date date) {
         this.date = date;
     }
 

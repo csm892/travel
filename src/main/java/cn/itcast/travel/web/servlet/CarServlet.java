@@ -20,7 +20,7 @@ import java.util.List;
  * @author csm
  * @create 2020-11-19 下午 12:22
  */
-@WebServlet(name = "/car/*")
+@WebServlet("/car/*")
 public class CarServlet extends BaseServlet {
     private CarService carService=new CarServiceImpl();
 
@@ -100,6 +100,7 @@ public class CarServlet extends BaseServlet {
 
         //接受参数
 
+       // System.out.println("hh");
         //获取session
         User user= (User) request.getSession().getAttribute("user");
         int uid;
