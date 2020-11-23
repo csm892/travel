@@ -12,4 +12,6 @@ public interface OrderService {
     List<Order> myOrder(int uid);
 
     void addOrder(String rid, int uid);
+
+    boolean updateOrder(String rid, int uid);
 }

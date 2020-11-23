@@ -11,6 +11,25 @@ public class Order implements Serializable {
     private int rid;
     private String date;
     private int uid;
+    private String status;//订单支付状态，Y代表支付，N代表未支付
+    private String code;
+
+    public String getCode() {
+        return code;
+    }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
 
     public int getOid() {
         return oid;

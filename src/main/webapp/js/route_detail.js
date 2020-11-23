@@ -6,7 +6,6 @@ $(function () {
         var lis = "";
         for (var i = 0; i < data.length; i++) {
 
-
             var li = ' <li class="feed">\n' +
                 '                        <div class="avatar">\n' +
                 '                            <img src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=3936143287,2803643994&fm=26&gp=0.jpg" alt="" />\n' +
@@ -37,4 +36,7 @@ $(function () {
         }
     })
 
+    $("#discuss").html('<textarea name="" class="reply_area">\n' +
+        '                       我也说两句\n' +
+        '                    </textarea>');
 })

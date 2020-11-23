@@ -28,8 +28,20 @@ public class OrderDaoImpl implements OrderDao {
 
     @Override
     //order在数据库中是关键字要转义
-    public void addOrder(String rid, int uid) {
-        String sql="insert into `order` values(?,?,?) ";
-        template.update(sql, uid,rid, new Date());
+    public void addOrder(Order order) {
+        String sql="insert into `order` values(?,?,?,?,? ) ";
+        template.update(sql, order.getUid(),
+                order.getRid(),
+                new Date(),
+                order.getStatus(),
+                order.getCode()
+                );
+    }
+
+    @Override
+    public boolean updateOrder(String rid, int uid) {
+        String sql = " update `order` set status = 'Y' where rid= ? and uid=? ";
+        int n= template.update(sql,rid,uid);
+        return n>=1;
     }
 }

@@ -35,7 +35,7 @@ public class DiscussDaoImpl implements DiscussDao {
 
         template.update(sql,discuss.getRid(),
                 discuss.getUid(),
-             discuss.getDate(),
+                new Date(),
                 discuss.getContent(),
                 discuss.getUsername()
 

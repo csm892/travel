@@ -4,7 +4,7 @@ import cn.itcast.travel.domain.Discuss;
 import cn.itcast.travel.domain.User;
 import cn.itcast.travel.service.DiscussService;
 import cn.itcast.travel.service.impl.DiscussServiceImpl;
-import org.apache.commons.beanutils.BeanUtils;
+
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.xml.crypto.Data;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.net.URLDecoder;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -35,26 +36,39 @@ public class DiscussServlet extends BaseServlet {
     }
     //填写评论
     public void add(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        request.setCharacterEncoding( "utf-8" );
+
+        //获取session
+        User user= (User) request.getSession().getAttribute("user");
+        int uid;
+        if (user==null){
+            //用户没有登录
+            uid=0;
+
+        }else {
+            uid=user.getUid();
+        }
+        String username=user.getUsername();
         String rid=request.getParameter("rid");
-        String uid=request.getParameter("uid");
-        String username=request.getParameter("username");
+        String content = request.getParameter("content");
+
         //获取表单提交评论内容
-        Map<String, String[]> map = request.getParameterMap();
+       // Map<String, String[]> map = request.getParameterMap();
         Discuss discuss=new Discuss();
         discuss.setRid(Integer.parseInt(rid));
-        discuss.setUid(Integer.parseInt(uid));
-
-        discuss.setDate(new Date());
+        discuss.setUid(uid);
         discuss.setUsername(username);
+        discuss.setContent(content);
         //封装提交的评论内容
-        try {
+       /** try {
             BeanUtils.populate(discuss,map);
         } catch (IllegalAccessException e) {
             e.printStackTrace();
         } catch (InvocationTargetException e) {
             e.printStackTrace();
-        }
-        //System.out.println(discuss);
+        }*/
+        response.setContentType("application/json;charset=utf-8");
+
         discussService.add(discuss);
 
 

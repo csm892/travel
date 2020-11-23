@@ -9,7 +9,7 @@ import java.util.Date;
 public class Discuss {
     private  Integer uid;
     private  Integer rid;
-    private Date date;
+    private String date;
     private  String content;
     private  String username;
 
@@ -47,11 +47,11 @@ public class Discuss {
         this.rid = rid;
     }
 
-    public Date getDate() {
+    public String getDate() {
         return date;
     }
 
-    public void setDate(Date date) {
+    public void setDate(String date) {
         this.date = date;
     }
 

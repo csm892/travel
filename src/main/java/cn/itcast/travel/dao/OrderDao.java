@@ -12,5 +12,7 @@ import java.util.List;
 public interface OrderDao {
     public List<Order> myOrder(int uid);
 
-    void addOrder(String rid, int uid);
+    void addOrder(Order order);
+
+    boolean updateOrder(String rid, int uid);
 }

@@ -22,6 +22,15 @@ import java.util.List;
 public class OrderServlet extends BaseServlet {
     private OrderService orderService=new OrderServiceImpl();
 
+
+    /**
+     *
+     * 我的全部订单
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     public  void myOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 
@@ -42,6 +51,14 @@ public class OrderServlet extends BaseServlet {
 
 
     }
+
+    /**
+     * 添加订单
+     * @param request
+     * @param response
+     * @throws ServletException
+     * @throws IOException
+     */
     public  void addOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         //接受参数
@@ -61,6 +78,40 @@ public class OrderServlet extends BaseServlet {
 
 
        orderService.addOrder(rid,uid);
+    }
+
+    public  void updateOrder(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+//接受参数
+        String rid = request.getParameter("rid");
+        //获取session
+        User user= (User) request.getSession().getAttribute("user");
+        int uid;
+        if (user==null){
+            //用户没有登录
+            return;
+
+        }else {
+            uid=user.getUid();
+        }
+
+        //调用service查询，
+
+
+
+        boolean flag =  orderService.updateOrder(rid,uid);
+
+        //3.判断标记
+        String msg = null;
+        if(flag){
+            //激活成功
+            msg = "支付成功！";
+        }else{
+            //激活失败
+            msg = "支付失败，请重新支付!";
+        }
+        response.setContentType("text/html;charset=utf-8");
+        response.getWriter().write(msg);
+
     }
 
     }

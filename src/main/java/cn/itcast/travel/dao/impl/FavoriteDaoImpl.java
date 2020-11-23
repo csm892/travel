@@ -58,7 +58,7 @@ public class FavoriteDaoImpl implements FavoriteDao {
     public List<myFavorite> myFavorite(int uid) {
 
 
-            String sql = " select rid from tab_favorite where uid = ?";
+            String sql = " select * from tab_favorite where uid = ?";
 
             return  template.query(sql, new BeanPropertyRowMapper<myFavorite>(myFavorite.class), uid);
 

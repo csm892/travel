@@ -5,6 +5,7 @@ import cn.itcast.travel.dao.impl.OrderDaoImpl;
 import cn.itcast.travel.domain.Order;
 import cn.itcast.travel.domain.myFavorite;
 import cn.itcast.travel.service.OrderService;
+import cn.itcast.travel.util.UuidUtil;
 
 import java.util.List;
 
@@ -23,6 +24,18 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void addOrder(String rid, int uid) {
-        orderDao.addOrder(rid,uid);
+        Order order=new Order();
+        //2.2设置激活状态
+        order.setStatus("N");
+        order.setCode(UuidUtil.getUuid());
+        order.setRid(Integer.parseInt(rid));
+        order.setUid(uid);
+        orderDao.addOrder(order);
+    }
+
+    @Override
+    public boolean updateOrder(String rid, int uid) {
+       boolean flag= orderDao.updateOrder(rid,uid);
+        return flag;
     }
 }
