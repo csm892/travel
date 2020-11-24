@@ -63,7 +63,7 @@ public class RouteServlet extends BaseServlet {
             pageSize=Integer.parseInt(pageSizeStr);
         }
         else {
-            pageSize=5;//默认显示5条记录
+            pageSize=6;//默认显示5条记录
         }
 
         //3调用service查询pageBean
